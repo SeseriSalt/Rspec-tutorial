@@ -53,6 +53,7 @@ RSpec.describe Project, type: :model do
                                  )
         other_project = other_user.projects.build(name: "Test Project")
 
+
         expect(other_project).to be_valid
       end
     end
