@@ -34,20 +34,20 @@ class User < ApplicationRecord
 
   private
 
-  def ensure_authentication_token
-    if authentication_token.blank?
-      self.authentication_token = generate_authentication_token
+    def ensure_authentication_token
+      if authentication_token.blank?
+        self.authentication_token = generate_authentication_token
+      end
     end
-  end
 
-  def generate_authentication_token
-    loop do
-      token = Devise.friendly_token
-      break token unless User.where(authentication_token: token).first
+    def generate_authentication_token
+      loop do
+        token = Devise.friendly_token
+        break token unless User.where(authentication_token: token).first
+      end
     end
-  end
 
-  def send_welcome_email
-    UserMailer.welcome_email(self).deliver_later
-  end
+    def send_welcome_email
+      UserMailer.welcome_email(self).deliver_later
+    end
 end
