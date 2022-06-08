@@ -3,28 +3,29 @@ require 'rails_helper'
 RSpec.describe Note, type: :model do
 
   before do
-    @user = User.create(first_name: "joe",
-                        last_name: "Tester,",
-                        email: "tester@example.com",
-                        password: "dottle-nouveau-pavilion-tights-furze")
+    @user = FactoryBot.create(:user)
 
-    @project = @user.projects.create(name: "Test Project")
+    @project = FactoryBot.create(:project)
+  end
+
+  it "ファクトリで関連するデータを生成する" do
+    note = FactoryBot.create(:note)
+    puts "This note's project is #{note.project.inspect}"
+    puts "This note's user is #{note.user.inspect}"
   end
 
   #バリデーション用のスペック
   describe "noteのバリデーション" do
     it "ユーザー、プロジェクト、メッセージがあれば有効であること" do
 
-      note1 = Note.new(message: "This is a sample message.",
-                       user: @user,
-                       project: @project)
+      note1 = FactoryBot.build(:note)
       expect(note1).to be_valid
     end
 
 
     it "メッセージが空の時無効であること" do
 
-      note1 = Note.new(message: nil)
+      note1 = FactoryBot.build(:note, message: nil)
 
       note1.valid?
       expect(note1.errors[:message]).to include("can't be blank")
@@ -35,12 +36,9 @@ RSpec.describe Note, type: :model do
   #文字列に関するスペック
   describe "文字列に一致するメッセージを検索する" do
     before do
-      @note1 = @project.notes.create(message: "This is the first note.",
-                                    user: @user)
-      @note2 = @project.notes.create(message: "This is the second note.",
-                                    user: @user)
-      @note3 = @project.notes.create(message: "First,this is the third note.",
-                                    user: @user)
+      @note1 = FactoryBot.create(:note_first1)
+      @note2 = FactoryBot.create(:note)
+      @note3 = FactoryBot.create(:note_first2)
     end
     context "一致するデータが見つかる時" do
 

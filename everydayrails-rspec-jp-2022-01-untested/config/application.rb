@@ -14,11 +14,11 @@ module Projects
     #RSpecを標準のテストにするやつ
     config.generators do |g|
       g.test_framework :rspec,
-                       fixtures: false,
+                       # fixtures: false,　#ファクトリーぼっとでデータ作成するためにコメントアウト
                        view_specs: false, #ビュースペックを作成しない→代わりにシステムスペックでUIをテスト
                        helper_specs: false, #ヘルパーファイル用のスペックを作成しない
                        routing_specs: false #ルーティンぐのスペックを作成しない
-      g.factory_bot false
+      # g.factory_bot false　
     end
 
     # Configuration for the application, engines, and railties goes here.
