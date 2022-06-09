@@ -125,7 +125,7 @@ RSpec.describe ProjectsController, type: :controller do
         project_params = FactoryBot.attributes_for(:project,
                                                    name: "New Project Name")
         sign_in @user
-        patch :update, params: {id: @project.id, project: project_params}
+        patch :update, params: { id: @project.id, project: project_params}
         expect(@project.reload.name).to eq "New Project Name"
       end
     end
@@ -195,8 +195,8 @@ RSpec.describe ProjectsController, type: :controller do
     context "認可されていないユーザとして" do
       before do
         @user = FactoryBot.create(:user)
-        othre_user = FactoryBot.create(:user)
-        @project = FactoryBot.create(:project, owner: othre_user)
+        other_user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, owner: other_user)
       end
 
       it "プロジェクトを削除できないこと" do
