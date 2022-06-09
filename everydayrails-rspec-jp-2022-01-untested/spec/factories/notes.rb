@@ -13,6 +13,5 @@ FactoryBot.define do
       message { "First,this is the third note." }
     end
 
-
   end
 end
