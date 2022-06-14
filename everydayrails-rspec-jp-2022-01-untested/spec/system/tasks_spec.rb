@@ -35,7 +35,6 @@ RSpec.describe "Tasks", type: :system do
     }.to change(project.tasks, :count).by(1)
 
 
-
   end
 
 
