@@ -71,5 +71,4 @@ RSpec.describe Note, type: :model do
       expect(note.user.name).to eq "Fake User"
       # expect(note.user.first_name).to eq "Fake"  だめ
     end
-
 end
