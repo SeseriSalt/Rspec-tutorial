@@ -40,4 +40,28 @@ RSpec.describe "Projects", type: :system do
   #   save_and_open_page
   #   click_link "New Project"
   # end
+  scenario "ユーザはプロジェクトを完了済みにする", :focus do
+    # プロジェクトを持ったユーザを準備する
+    # ユーザはログインしている
+    # ユーザはプロジェクト画面を開き
+    # completeボタンを押すと
+    # プロジェクトが完了済みとしてマークされる
+    user = FactoryBot.create(:user)
+    project = FactoryBot.create(:project, owner: user)
+
+    sign_in user
+    visit project_path(project)
+
+    expect(page).to_not have_content "Completed"
+
+    click_button "Complete"
+
+    expect(project.reload.completed?).to be true
+    expect(page).to have_content "Congratulations, this project is complete!"
+    expect(page).to have_content "Completed"
+    expect(page).to_not have_button "Complete"
+
+  end
+
+
 end
