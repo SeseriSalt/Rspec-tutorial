@@ -13,5 +13,10 @@ FactoryBot.define do
       message { "First,this is the third note." }
     end
 
+    factory :with_attachment do
+      attachment { Rack::Test::UploadFile.
+        new("#{Rails.root}/spec/files/attachment.jpg", 'attachment.jpeg')}
+    end
+
   end
 end
