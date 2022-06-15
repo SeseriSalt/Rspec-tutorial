@@ -30,6 +30,7 @@ RSpec.describe Note, type: :model do
 
   end
 
+
   #文字列に関するスペック
   describe "文字列に一致するメッセージを検索する" do
     #リファクタリング
@@ -46,7 +47,7 @@ RSpec.describe Note, type: :model do
     context "一致するデータが見つかる時" do
 
       it "検索文字列に一致するメモを返すこと" do
-
+        skip "スキップしてみる"
         expect(Note.search("first")).to include(note1, note3)
         expect(Note.search("first")).to_not include(note2)
       end
@@ -61,5 +62,14 @@ RSpec.describe Note, type: :model do
     end
 
   end
+
+  #モックの使用
+    it "名前の取得をメモを作成したユーザーに委譲すること" do
+      user = instance_double("User", name: "Fake User")
+      note = Note.new
+      allow(note).to receive(:user).and_return(user)
+      expect(note.user.name).to eq "Fake User"
+      # expect(note.user.first_name).to eq "Fake"  だめ
+    end
 
 end
